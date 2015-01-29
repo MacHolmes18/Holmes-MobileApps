@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
 	
 	private Handler h; // The handler
 	
-	private int RATE = 1000; // Milliseconds - how fast
+	private int RATE = 30; // Milliseconds - how fast
 	
 
 	@Override
