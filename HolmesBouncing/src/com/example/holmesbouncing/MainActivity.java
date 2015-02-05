@@ -40,6 +40,8 @@ public class MainActivity extends Activity {
 		
 	}
 	
+	
+	
 	private SensorEventListener sensorEventListener =
 			new SensorEventListener() {
 
@@ -65,6 +67,7 @@ public class MainActivity extends Activity {
 				}
 		
 	};
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

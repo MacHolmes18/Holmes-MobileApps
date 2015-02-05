@@ -16,6 +16,12 @@ public class Actor {
 	private int dy; //Change in Y speed
 	private Paint paint; //Paint object
 	
+	private int w;
+	private int h;
+	
+	//Boolean is visible to check if draw
+	private boolean isVisible = true;
+	
 	//Context
 	private Context aContext;
 	private int costume;
@@ -27,6 +33,8 @@ public class Actor {
 		p = new Point(x, y);
 		c = col; // For the color
 		s = size; //Assign the size
+		w = s; //Set width
+		h = s; //Set height
 		paint = new Paint(); //Creates paint object
 		paint.setColor(c); // Sets paint color
 		dx = 0; //Sets X speed to 0
@@ -36,6 +44,24 @@ public class Actor {
 		aContext = context;
 		
 		}//End Constructor
+	
+	public void setWidth(int width) {
+		w = width;
+	}
+	
+	public void setHeight(int height) {
+		h = height;
+	}
+	
+	public boolean isTouching(Actor a) {
+		boolean result = false;
+		
+		if ((p.x + w > a.getX() && p.x < a.getX() + a.getWidth()) &&
+		    (p.y + h > a.getY() && p.y+h < a.getY() + a.getHeight())) {
+			result = true;
+		}
+		return result;
+	}
 	
 	// Accessors and the modifiers ( Getters and Setters )
 	public int getX() {
@@ -58,6 +84,15 @@ public class Actor {
 	public void setColor(int col) {
 		c = col;
 		paint.setColor(c);
+	}
+	
+	public void bounceOff() {
+		dx = dx * -1;
+		dy = dy * -1;
+	}
+	
+	public void bounceUp() {
+		dy = dy * -1;
 	}
 	
 	public void goTo(int x, int y) {
@@ -110,9 +145,27 @@ public class Actor {
 		c.drawRect(p.x, p.y, p.x+s, p.y+s, paint);
 	}
 	
+	public void drawRect(Canvas c) {
+		if(isVisible) {
+		c.drawRect(p.x, p.y, p.x+w, p.y+h, paint);
+		}
+	}
+	
 	public void setCostume(int cost) {
 		costume = cost;
 		graphic = (BitmapDrawable)aContext.getResources().getDrawable(costume);
+		
+		//Set width and height based on custome
+		w = graphic.getBitmap().getWidth();
+		h = graphic.getBitmap().getHeight();
+	}
+	
+	public int getHeight() {
+		return h;
+	}
+	
+	public int getWidth() {
+		return w;
 	}
 
 	public Bitmap getBitmap() {
@@ -122,6 +175,16 @@ public class Actor {
 	public void draw(Canvas c) {
 		c.drawBitmap(getBitmap(), p.x, p.y, paint);
 	}
+	
+	public boolean getVisible() {
+		return isVisible;
+	}
+	
+	public void setVisible(boolean v) {
+		isVisible = v;
+	}
+	
+	
 	
 }
 
